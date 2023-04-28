@@ -1,0 +1,12 @@
+body {
+    background-color: lightgray;
+}
+#photo{
+    width: 7%;
+    float:right;
+}
+#photopanier{
+    width:9%;
+    position: relative;
+}
+   
