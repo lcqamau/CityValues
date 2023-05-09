@@ -21,6 +21,7 @@ import AuthContext from "./js/contexts/AuthContext";
 import HomePage from './js/pages/HomePage';
 import LoginPage from './js/pages/LoginPage';
 import authAPI from './js/services/authAPI';
+import ProfilPage from './js/pages/profil';
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 
@@ -47,6 +48,7 @@ const App = () =>{
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
+                <PrivateRoute path="/profil" component={ProfilPage}/>
                 <PrivateRoute path="/Chaussures" component={Chaussures}/>
                 <PrivateRoute path="/Panier" component={Panier}/>
                 <Route path="/" component={HomePage}/>

@@ -26,7 +26,7 @@ const LoginPage = ({ history}) => {
          await AuthAPI.authenticate(credentials);
          setError("")
          setIsAuthenticated(true);
-         toast.success("Vous etes desromais connecté !");
+         toast.success("Vous etes desormais connecté !");
          history.replace("/customers");
         }catch{
             setError("Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas !");

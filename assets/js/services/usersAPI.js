@@ -7,7 +7,11 @@ function register(user){
       );
 }
 
-
+function findAll(){
+  return axios
+  .get("/api/users")
+  .then(response =>response.data['hydra:member'])
+}
 
 async function find(id) {
   const cachedUser = await Cache.get("users." + id);
@@ -26,4 +30,5 @@ async function find(id) {
 export default {
   register,
   find,
+  findAll,
 };
