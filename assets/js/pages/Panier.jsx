@@ -26,10 +26,8 @@ const Panier = (match) => {
 
     const handleDelete = (itemId) => {
       Axios
-        .delete(`/api/panier/${itemId}`)
-        .then((response) => {
-          setCartItems(cartItems.filter((item) => item.id !== itemId));
-        })
+        .delete(`/api/paniers/${itemId}`)
+        location.reload()
         .catch((error) => {
           console.log(error);
         });
@@ -75,7 +73,7 @@ const Panier = (match) => {
          <button onClick={() => alert(`Le prix total est de ${calculerPrixTotal()} euros`)}>
                 Payer
         </button>
-        <button onClick={() => clearPanier}>Clear Cart</button>
+        <button onClick={() => clearPanier()}>Clear Cart</button>
         </>
     )
 }

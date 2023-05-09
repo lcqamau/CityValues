@@ -14,44 +14,51 @@ async function findAll() {
 }
 
 async function find(id) {
-  const cachedProduits = await Cache.get("produits." + id);
+  const cachedProduit = await Cache.get("produits." + id);
 
-  if (cachedProduits) return cachedProduits;
+  if (cachedProduit) return cachedProduit;
 
-  return axios.get("api/produits/" + id).then(response => {
+  return axios.get("http://127.0.0.1:8000/api/produits/" + id).then(response => {
     const produit = response.data;
+
     Cache.set("produits." + id, produit);
+
     return produit;
   });
 }
 
-function deleteParc(id){
+
+function deleteProduit(id){
   return axios
   .delete("/api/produits/" + id)
 }
 
-
-function update(id, parc) {
-  return axios.put("api/produits/" + id, parc).then(async response => {
+async function update(id, produit) {
+  return axios.put("http://127.0.0.1:8000/api/produits/" + id, produit).then(async response => {
     const cachedProduits = await Cache.get("produits");
-    const cachedProduit =  await Cache.get("produits." + id);
+    const cachedProduit = await Cache.get("produits." + id);
+
     if (cachedProduit) {
       Cache.set("produits." + id, response.data);
     }
+
     if (cachedProduits) {
       const index = cachedProduits.findIndex(c => c.id === +id);
       cachedProduits[index] = response.data;
     }
+
     return response;
   });
 }
 
-function create(produit) {
-  return axios.post("api/produits",produit).then(async response => {
+async function create(produit) {
+  return axios.post("http://127.0.0.1:8000/api/produits", produit).then(async response => {
     const cachedProduits = await Cache.get("produits");
+
     if (cachedProduits) {
       Cache.set("produits", [...cachedProduits, response.data]);
     }
+
     return response;
   });
 }
@@ -59,7 +66,7 @@ function create(produit) {
 export default {
   findAll,
   find,
-  deleteParc,
+  deleteProduit,
   create,
   update,
 };

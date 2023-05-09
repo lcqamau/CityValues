@@ -1,0 +1,25 @@
+.order-tracker {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .order-tracker__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .order-tracker__step-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .order-tracker__step--active .order-tracker__step-label {
+    color: blue;
+    font-size: 16px;
+  }
+
+  
+  
+  

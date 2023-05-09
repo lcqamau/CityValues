@@ -1,8 +1,12 @@
+
 import React from 'react';
 import Field from "../components/forms/Field";
 
+
+
 const HomePage = () => {
-    return ( 
+
+  return ( 
       <>
       <h1 className='text-center'>Bienvenue sur ACME</h1>
       <div class="card mb-3">

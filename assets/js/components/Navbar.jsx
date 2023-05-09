@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import authAPI from '../services/authAPI';
 import { NavLink } from "react-router-dom";
 import AuthContext from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import "../../styles/app.css"
+import jwtDecode from 'jwt-decode';
 
 const Navbar = ({history}) => {
 
@@ -15,6 +16,21 @@ const Navbar = ({history}) => {
       toast.info("Vous etes désormé déconnectés")
       history.push('/login');
   };
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    var token = localStorage.getItem("authToken");
+  
+    if (token) {
+      var decodedToken = jwtDecode(token);
+      if (decodedToken.roles[0] === "ROLE_ADMIN") {
+          setIsAdmin(true);
+      }
+    }
+  
+    },[isAuthenticated]);
+  
+
 
     return ( <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
     <div className="container-fluid">
@@ -31,6 +47,13 @@ const Navbar = ({history}) => {
           <li className="nav-item">
             <NavLink className="nav-link" to="/profil">Profil</NavLink>
           </li>
+          {isAdmin &&
+          <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/stock">Produit</NavLink>
+              </li>
+          </>
+        }
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
