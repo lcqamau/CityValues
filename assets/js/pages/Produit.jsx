@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Field from "../components/forms/Field";
-import Select from "../components/forms/Select";
 import { Link } from "react-router-dom";
 import produitsAPI from "../services/produitsAPI";
 import { toast } from "react-toastify";
-import FormContentLoader from "../components/loaders/FormContentLoader";
+
 
 const ProduitPage = ({ history, match }) => {
   const { id = "new" } = match.params;
@@ -13,35 +12,42 @@ const ProduitPage = ({ history, match }) => {
     nom_produit: "",
     prix: "",
     stock: "",
-    photo: "",
+    photo:""
   });
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState({
     nom_produit: "",
     prix: "",
     stock: "",
-    photo: "",
+    photo:""
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Récupération d'une facture
   const fetchProduits = async id => {
     try {
-      const { nom_produit, stock, prix, photo  } = await produitsAPI.find(id);
-      setProduifetchProduits({ nom_produit, stock, prix,  photo});
+      const produit = await produitsAPI.find(id);
+      setProduit(produit);
       setLoading(false);
     } catch (error) {
       toast.error("Impossible de charger la facture demandée");
       history.replace("/stock");
     }
   };
-
   // Récupération de la bonne facture quand l'identifiant de l'URL change
   useEffect(() => {
     if (id !== "new") {
       setLoading(true);
       setEditing(true);
       fetchProduits(id);
+    } else {
+      setProduit({
+        nom_produit: "",
+        prix: "",
+        stock: "",
+        photo: "",
+      });
+      setEditing(false);
     }
   }, [id]);
   // Gestion des changements des inputs dans le formulaire
@@ -84,48 +90,52 @@ const ProduitPage = ({ history, match }) => {
       {(editing && <h1>Modification d'une facture</h1>) || (
         <h1>Création d'une facture</h1>
       )}
-      {loading && <FormContentLoader />}
-
       {!loading && (
-        <form onSubmit={handleSubmit}>
+        <form className="form-container" onSubmit={handleSubmit}>
           <Field
+            className="form-field"
             name="nom_produit"
-            placeholder="Montant de la facture"
-            label="Montant"
+            placeholder="Nom du produit"
+            label="Nom du produit"
             onChange={handleChange}
             value={Produit.nom_produit}
             error={errors.nom_produit}
           />
-           <Field
-            name="prix"
-            type="number"
-            placeholder="Montant de la facture"
-            label="Montant"
-            onChange={handleChange}
-            value={Produit.prix}
-            error={errors.prix}
-          />
-        <Field
-            name="stock"
-            type="number"
-            placeholder="Montant de la facture"
-            label="Montant"
-            onChange={handleChange}
-            value={Produit.stock}
-            error={errors.stock}
-          />
-        <Field
-            name="photo"
-            placeholder="Montant de la facture"
-            label="Montant"
-            onChange={handleChange}
-            value={Produit.photo}
-            error={errors.photo}
-          />
-
-        
           <div className="form-group">
-            <button type="submit" className="btn btn-success">
+            <div className="form-field-row">
+              <Field
+                className="form-field"
+                name="prix"
+                type="number"
+                placeholder="Prix du produit"
+                label="Prix du produit"
+                onChange={handleChange}
+                value={Produit.prix}
+                error={errors.prix}
+              />
+              <Field
+                className="form-field"
+                name="stock"
+                type="number"
+                placeholder="Stock"
+                label="Stock"
+                onChange={handleChange}
+                value={Produit.stock}
+                error={errors.stock}
+              />
+            </div>
+            <Field
+              className="form-field"
+              name="photo"
+              placeholder="Photo du produit"
+              label="Photo du produit"
+              onChange={handleChange}
+              value={Produit.photo}
+              error={errors.photo}
+            />
+          </div>
+          <div className="form-group form-actions">
+            <button type="submit" style={{ marginTop: "40px" }}  className="btn btn-success">
               Enregistrer
             </button>
             <Link to="/stock" className="btn btn-link">

@@ -65,6 +65,7 @@ const Chaussures = ({id, history}) => {
         Produits:`/api/produits/${id}`,
         Taille: Panier.Taille
         })
+        history.replace("/Panier")
         toast.success("Panier ajouté 👌")
         history.replace("/Panier")
     }catch(error){
@@ -92,7 +93,7 @@ const Chaussures = ({id, history}) => {
       .map(produit => (
          <form action="/mon-url" key={produit.id}> 
             <div className="col" style={{padding: 5}}>
-                <div name="Produits" className="card">
+                <div name="Produits"  class="card text-white bg-dark mb-3" >
                   <img src={produit.photo} className="card-img-top" alt="..."/>
                 <div className="card-body">
                     <h5 className="card-title"><u>Nom du produit </u>: {produit.nom_produit}</h5>
@@ -104,6 +105,7 @@ const Chaussures = ({id, history}) => {
                         value={Panier.Taille}
                         onChange={handleChange}
                     >
+                        <option>Choisir la taille</option>
                         <option>36</option>
                         <option>37</option>
                         <option>38</option>
@@ -118,7 +120,7 @@ const Chaussures = ({id, history}) => {
                         <option>47</option>
                     </Select>
                     <br/>
-                    <button onClick={() => handleAddToCart(produit.id)} type="submit" className="btn btn-dark">Ajouter au panier</button>
+                    <button onClick={() => handleAddToCart(produit.id, user.id)} type="submit" className="btn btn-primary">Ajouter au panier</button>
                     <p className="text-muted">Reference du produit : {produit.id}</p>
                 </div>
                 </div>

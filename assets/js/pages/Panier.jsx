@@ -1,26 +1,54 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import usersAPI from '../services/usersAPI';
 import Axios from 'axios';
 import "../../styles/app.css"
+import jwtDecode from "jwt-decode";
+import { toast } from 'react-toastify';
+import panierAPI from '../services/panierAPI';
 
 const Panier = (match) => {
     const [Panier,setPanier] = useState([])
-
-    const Paniers = async () => {
+    const token = localStorage.getItem('authToken');
+    const [user, setUser] = useState([]);
+  
+  
+    const decodeToken = async (token) => {
       try {
-        const data = await Axios
-          .get("http://localhost:8000/api/paniers")
-          .then((response) => setPanier(response.data["hydra:member"]))
-      }catch (error) {
-        console.log(error);
+        const decoded = jwtDecode(token);
+        fechUser(decoded.username);
+      } catch (err) {
+        toast.error('Invalid token', err)
+      }
+    }
+
+    const fechUser = async (email) => {
+      try {
+        const data = await usersAPI.findAll();
+        const user = data.find(u => u.email === email);
+        console.log(user);
+        setUser(user);
+        Paniers(user.id)
+      } catch (error) {
+        toast.error('Impossible de charger les données utilisateurs | erreur :' + error)
+      }
+    }
+    
+    const Paniers = async (userId) => {
+      try {
+        const data = await panierAPI.findAll();
+        const Panier = data.filter(p => p.user=== "/api/users/" + userId);
+        setPanier(Panier)
+        console.log(Panier);
+      } catch (error) {
+        console.log('Impossible de charger vos commandes | erreur : ' + error )
       }
     }
 
     function calculerPrixTotal() {
-      const prixTotal = Panier.reduce((total, panier) => {
-        return total + panier.Produits.prix;
-      }, 0);
+      const prixTotal = Panier.filter((item) => item.user === `/api/users/${user.id}`)
+        .reduce((total, item) => total + item.Produits.prix, 0);
       return prixTotal;
     }
 
@@ -41,18 +69,20 @@ const Panier = (match) => {
 
     useEffect(() => {
         Paniers();
+        decodeToken(token);
       }, []);
 
 
     return(
         <>
-        {Panier.length === 0 && <p>Your cart is empty.</p>}
+        <h2> Voici votre panier {user.FirstName} {user.LastName}</h2>
+        {Panier.length === 0 && <p>Votre panier est vide</p>}
         {Panier.length > 0 && (
              <table className="table table-hover">
               <thead>
                 <tr>
                   <th>photo</th>
-                  <th>nom du building</th>
+                  <th>nom du Produits</th>
                   <th>prix</th>
                   
                 </tr>

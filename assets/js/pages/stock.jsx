@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import produitsAPI from "../services/produitsAPI";
 import Axios from 'axios';
-const stock = ({history}) => {
+const stock = ({}) => {
     const [Produits, setProduits] = useState([]);
     const [loading, setLoading] = useState(true);
 

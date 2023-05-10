@@ -21,13 +21,13 @@ class Produit
     #[Groups(["produit_read","panier_read"])]
     public ?string $nom_produit = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 5)]
     #[Groups(["produit_read","panier_read"])]
-    private ?int $prix = null;
+    private ?string $prix = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 3)]
     #[Groups(["produit_read"])]
-    private ?int $stock = null;
+    private ?string $stock = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(["produit_read","panier_read"])]
@@ -52,24 +52,24 @@ class Produit
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?string
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(string $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-    public function getStock(): ?int
+    public function getStock(): ?string
     {
         return $this->stock;
     }
 
-    public function setStock(int $stock): self
+    public function setStock(string $stock): self
     {
         $this->stock = $stock;
 

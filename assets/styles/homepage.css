@@ -1,0 +1,45 @@
+.background-image {
+    background-image: url("https://static.vecteezy.com/ti/vecteur-libre/p1/5948510-arriere-plan-abstrait-pour-theme-ou-volume-de-livre-site-web-gratuit-vectoriel.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .App-header {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .cta-button {
+    background-color: #ff5722;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #f44336;
+  }
+  
+  .presentation-section {
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .presentation-image {
+    margin-top: 2rem;
+    width: 80%;
+    border-radius: 0.5rem;
+  }

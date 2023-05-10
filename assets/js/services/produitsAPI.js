@@ -14,7 +14,7 @@ async function findAll() {
 }
 
 async function find(id) {
-  const cachedProduit = await Cache.get("produits." + id);
+  const cachedProduit = await Cache.get("produits/" + id);
 
   if (cachedProduit) return cachedProduit;
 
