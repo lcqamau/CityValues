@@ -27,6 +27,10 @@ class Panier
     #[Groups("panier_read")]
     private ?Produit $Produits = null;
 
+    #[ORM\ManyToOne]
+    #[Groups("panier_read")]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,5 +59,15 @@ class Panier
 
         return $this;
     }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

@@ -1,34 +1,27 @@
 import React, { useEffect, useState } from "react";
 import produitsAPI from "../services/produitsAPI";
 import { toast } from "react-toastify";
-import Field from "../components/forms/Field";
 import Select from "../components/forms/Select";
 import Axios from "axios";
 import jwtDecode from "jwt-decode";
-import panierAPI from "../services/panierAPI";
-import { Link } from "react-router-dom";
+import usersAPI from "../services/usersAPI";
 
 const Chaussures = ({id, history}) => {
-  const token = window.localStorage.getItem("authToken");
-  const { Id: identifiant } = jwtDecode(token);
+  const token = localStorage.getItem('authToken');
   const [Produits, setProduits] = useState([]);
-  const [Categorie, setCategorie] = useState([]);
-  const [selectedId, setSelectedId] = useState([]);
+  const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
   const [Panier,setPanier] = useState({
     Taille:"",
     Produits:"",
+    user:"",
   });
-
-  const selectCategorie = async () => {
+  const decodeToken = async (token) => {
     try {
-      setLoading(true);
-      const data = await Axios
-        .get("http://localhost:8000/api/categories")
-        .then((response) => setCategorie(response.data["hydra:member"]))
-      setLoading(false);
-    }catch (error) {
-      console.log(error);
+      const decoded = jwtDecode(token);
+      fetchUser(decoded.username);
+    } catch (err) {
+      toast.error('Invalid token', err)
     }
   }
 
@@ -43,9 +36,14 @@ const Chaussures = ({id, history}) => {
     }
   };
 
-  const handleChangeselect = (e) => {
-    console.log(e.target.value)
-    setSelectedId(e.target.value);
+  const fetchUser = async (email) => {
+    try {
+      const data = await usersAPI.findAll();
+      const user = data.find(u => u.email === email);
+      setUser(user);
+    } catch (error) {
+      toast.error('Impossible de charger les données utilisateurs | erreur :' + error)
+    }
   }
 
   const handleChange = ({ currentTarget }) => {
@@ -56,18 +54,19 @@ const Chaussures = ({id, history}) => {
   // Au chargement du composant, on va chercher les produits
   useEffect(() => {
     fetchProduits();
+    decodeToken(token);
   }, []);
 
   // Ajouter 
-  const handleAddToCart = (id) => {
+  const handleAddToCart = (id, userID) => {
     try {
       Axios.post('http://localhost:8000/api/paniers', {
         Produits:`/api/produits/${id}`,
+        user:`/api/users/${userID}`,
         Taille: Panier.Taille
         })
         history.replace("/Panier")
         toast.success("Panier ajouté 👌")
-        history.replace("/Panier")
     }catch(error){
       if (error.response) {
         // Request made and server responded
@@ -91,7 +90,7 @@ const Chaussures = ({id, history}) => {
     <div className="row row-cols-2 row-cols-md-4 g-6">   
       {Produits
       .map(produit => (
-         <form action="/mon-url" key={produit.id}> 
+         <form  key={produit.id}> 
             <div className="col" style={{padding: 5}}>
                 <div name="Produits"  class="card text-white bg-dark mb-3" >
                   <img src={produit.photo} className="card-img-top" alt="..."/>
