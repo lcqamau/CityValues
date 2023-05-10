@@ -87,12 +87,12 @@ const Chaussures = ({id, history}) => {
   return (
     <>
     <br/>
-    <div className="row row-cols-2 row-cols-md-4 g-6">   
+    <div className="row row-cols-2 row-cols-md-3 g-6">   
       {Produits
       .map(produit => (
          <form  key={produit.id}> 
             <div className="col" style={{padding: 5}}>
-                <div name="Produits"  class="card text-white bg-dark mb-3" >
+                <div name="Produits"  class="card text-white bg-dark mb-2" >
                   <img src={produit.photo} className="card-img-top" alt="..."/>
                 <div className="card-body">
                     <h5 className="card-title"><u>Nom du produit </u>: {produit.nom_produit}</h5>
