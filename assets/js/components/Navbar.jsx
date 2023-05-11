@@ -16,6 +16,7 @@ const Navbar = ({history}) => {
       toast.info("Vous etes désormé déconnectés")
       history.push('/login');
   };
+  
   const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {

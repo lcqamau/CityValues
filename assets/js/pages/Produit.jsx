@@ -84,8 +84,8 @@ const ProduitPage = ({ history, match }) => {
 
   return (
     <>
-      {(editing && <h1>Modification d'une facture</h1>) || (
-        <h1>Création d'une facture</h1>
+      {(editing && <h1>Modification d'un produit</h1>) || (
+        <h1>Création d'un produit</h1>
       )}
       {!loading && (
         <form className="form-container" onSubmit={handleSubmit}>

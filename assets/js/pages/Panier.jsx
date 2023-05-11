@@ -61,12 +61,6 @@ const Panier = (match) => {
         });
     };
 
-    const clearPanier = () => {
-      Axios.delete('http://localhost:8000/api/paniers').then(() => {
-        setPanier([]);
-      });
-    };
-
     useEffect(() => {
         Paniers();
         decodeToken(token);
@@ -100,11 +94,10 @@ const Panier = (match) => {
                 </tbody>
             </table>
         )}
-         <button onClick={() => alert(`Le prix total est de ${calculerPrixTotal()} euros`)}>
+         <button class="btn btn-dark" onClick={() => alert(`Le prix total est de ${calculerPrixTotal()} euros`)}>
                 Payer
         </button>
-        <button onClick={() => clearPanier()}>Clear Cart</button>
-        </>
+          </>
     )
 }
 export default Panier

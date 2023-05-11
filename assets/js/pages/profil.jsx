@@ -59,6 +59,7 @@ const ProfilPage = (match) => {
             </div>
             <div className="delivery-wrapper">
               <h2>Détails des livraisons</h2>
+              {userDeliverys.length === 0 && <p>Vous n'avez pas de commande</p>}
               {userDeliverys
               .map(userDelivery => (
                 <div className="delivery-container"  key={userDelivery.id}>
