@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 // start the Stimulus application
 import './bootstrap';
 import Navbar from './js/components/Navbar';
+import Footer from './js/components/Footer';
 import RegisterPage from './js/pages/RegisterPage';
 import Chaussures from './js/pages/Chaussures';
 import Panier from './js/pages/Panier';
@@ -78,7 +79,7 @@ const App = () =>{
     }}>
     <HashRouter>
         <NavbarWithRouter isAuthenticated={isAuthenticated} onLogout={setIsAuthenticated} />
-        <main className="container pt-5">
+        <main>
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
@@ -86,7 +87,7 @@ const App = () =>{
                 <AdminRoute path="/stock" component={stock}/>
                 <AdminRoute path="/Produit" component={Produit}/>
                 <PrivateRoute path="/Chaussures" component={Chaussures}/>
-                <PrivateRoute path="/Panier" component={Panier}/>
+                <PrivateRoute path="/Panier" component={Panier}/>                  
                 <Route path="/" component={HomePage}/>
             </Switch>
         </main>

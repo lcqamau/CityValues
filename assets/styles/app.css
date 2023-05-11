@@ -1,5 +1,20 @@
+@font-face {
+    font-family: 'NewTelegraph';
+    src: url('../media/fonts/NewTelegraph.ttf') format('truetype');
+    /* Autres formats de police */
+    /* src: url('../assets/fonts/CustomFont.woff') format('woff'),
+           url('../assets/fonts/CustomFont.woff2') format('woff2'); */
+  }
+  
+
 body {
     background-color: rgb(255, 255, 255);
+    font-family: 'NewTelegraph', sans-serif;
+    min-height: 100vh;
+
+}
+main {
+    overflow: hidden;
 }
 #photo{
     width: 7%;

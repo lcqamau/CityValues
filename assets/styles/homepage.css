@@ -1,45 +1,91 @@
-.background-image {
-    background-image: url("https://static.vecteezy.com/ti/vecteur-libre/p1/5948510-arriere-plan-abstrait-pour-theme-ou-volume-de-livre-site-web-gratuit-vectoriel.jpg");
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .App-header {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: #fff;
-  }
-  
-  .cta-button {
-    background-color: #ff5722;
-    color: #fff;
-    padding: 1rem 1.5rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-  }
-  
-  .cta-button:hover {
-    background-color: #f44336;
-  }
-  
-  .presentation-section {
-    max-width: 80%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .presentation-image {
-    margin-top: 2rem;
-    width: 80%;
-    border-radius: 0.5rem;
-  }
+/* global style */
+/* global */
+:root {
+	--step--10: clamp(0.16rem, calc(0.64rem + -0.62vw), 0.52rem);
+	--step--9: clamp(0.20rem, calc(0.67rem + -0.61vw), 0.56rem);
+	--step--8: clamp(0.25rem, calc(0.70rem + -0.58vw), 0.60rem);
+	--step--7: clamp(0.31rem, calc(0.74rem + -0.55vw), 0.64rem);
+	--step--6: clamp(0.39rem, calc(0.77rem + -0.48vw), 0.68rem);
+	--step--5: clamp(0.49rem, calc(0.80rem + -0.39vw), 0.72rem);
+	--step--4: clamp(0.61rem, calc(0.82rem + -0.27vw), 0.77rem);
+	--step--3: clamp(0.77rem, calc(0.84rem + -0.09vw), 0.82rem);
+	--step--2: clamp(0.88rem, calc(0.85rem + 0.14vw), 0.96rem);
+	--step--1: clamp(0.94rem, calc(0.85rem + 0.45vw), 1.20rem);
+	--step-0: clamp(1.00rem, calc(0.84rem + 0.85vw), 1.50rem);
+	--step-1: clamp(1.07rem, calc(0.81rem + 1.38vw), 1.88rem);
+	--step-2: clamp(1.14rem, calc(0.75rem + 2.05vw), 2.34rem);
+	--step-3: clamp(1.22rem, calc(0.67rem + 2.92vw), 2.93rem);
+	--step-4: clamp(1.30rem, calc(0.54rem + 4.03vw), 3.66rem);
+	--step-5: clamp(1.38rem, calc(0.36rem + 5.44vw), 4.58rem);
+	--step-6: clamp(1.48rem, calc(0.12rem + 7.23vw), 5.72rem);
+	--step-7: clamp(1.57rem, calc(-0.21rem + 9.49vw), 7.15rem);
+	--step-8: clamp(1.68rem, calc(-0.64rem + 12.36vw), 8.94rem);
+	--step-9: clamp(1.79rem, calc(-1.20rem + 15.97vw), 11.18rem);
+	--step-10: clamp(1.91rem, calc(-1.94rem + 20.52vw), 13.97rem);
+}
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+  text-decoration: none;
+  list-style: none;    
+}
+.wave {
+  aspect-ratio: 960/100;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: block;
+}
+
+.landing-section {
+  position: relative;
+  background-color: black;
+  color: white;
+  min-height: 90vh;
+  min-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: -3rem;
+  padding: 0% 10%;
+}
+.landing-section img {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  image-orientation: revert;
+  width: 35%;  
+  transform: translateY(-50%) rotateZ(350deg) rotateY(180deg);
+}
+.landing-section img::after {
+  display: block;
+  content: "Nike Air More Uptempo";  
+  width: 100%;
+  height: 100%;
+
+}
+.landing-section H1 {
+  font-size: 10rem;
+}
+.landing-cta-button {
+  color: white;
+  text-decoration: none;
+  border: 1px solid white;
+  padding: 2%;
+  border-radius: 2rem;
+  width: fit-content;
+}
+.landing-cta-button:hover {
+  color: black;
+  background-color: white;
+  border: black;
+}
+.footer-wave {
+  background-image: url(../media/svg/blackToGrey.svg);
+}

@@ -54,11 +54,13 @@ const ProfilPage = (match) => {
 
     return(
         <>
+        <div className="container pt-5">
             <div className="profil-container">
               <h1>Bonjour {user.FirstName} {user.LastName}</h1>
             </div>
             <div className="delivery-wrapper">
-              <h2>Détails des livraisons</h2>
+              <h2>Détails des livraisons :</h2>
+              {userDeliverys.length === 0 && <p>Vous n'avez pas de commande</p>}
               {userDeliverys
               .map(userDelivery => (
                 <div className="delivery-container"  key={userDelivery.id}>
@@ -66,7 +68,9 @@ const ProfilPage = (match) => {
                   <span id="delivery-etat">état de la livraison : {userDelivery.Etat}</span>
                 </div>
               ))}
-            </div>
+            </div>          
+        </div>
+
         </>
     )   
 }

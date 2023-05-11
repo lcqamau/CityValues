@@ -3,7 +3,7 @@ import Field from "../components/forms/Field";
 import { Link } from "react-router-dom";
 import produitsAPI from "../services/produitsAPI";
 import { toast } from "react-toastify";
-
+import Footer from '../components/Footer';
 
 const ProduitPage = ({ history, match }) => {
   const { id = "new" } = match.params;
@@ -87,8 +87,8 @@ const ProduitPage = ({ history, match }) => {
 
   return (
     <>
-      {(editing && <h1>Modification d'une facture</h1>) || (
-        <h1>Création d'une facture</h1>
+      {(editing && <h1>Modification d'un produit</h1>) || (
+        <h1>Création d'une produit</h1>
       )}
       {!loading && (
         <form className="form-container" onSubmit={handleSubmit}>
@@ -139,7 +139,7 @@ const ProduitPage = ({ history, match }) => {
               Enregistrer
             </button>
             <Link to="/stock" className="btn btn-link">
-              Retour aux factures
+              Retour aux produits
             </Link>
           </div>
         </form>

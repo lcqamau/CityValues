@@ -5,6 +5,7 @@ import Select from "../components/forms/Select";
 import Axios from "axios";
 import jwtDecode from "jwt-decode";
 import usersAPI from "../services/usersAPI";
+import Footer from '../components/Footer';
 
 const Chaussures = ({id, history}) => {
   const token = localStorage.getItem('authToken');
@@ -87,7 +88,8 @@ const Chaussures = ({id, history}) => {
   return (
     <>
     <br/>
-    <div className="row row-cols-2 row-cols-md-4 g-6">   
+    <div className="container pt-5">
+      <div className="row row-cols-2 row-cols-md-4 g-6">   
       {Produits
       .map(produit => (
          <form  key={produit.id}> 
@@ -127,6 +129,8 @@ const Chaussures = ({id, history}) => {
           </form>
         ))} 
     </div>
+    </div>
+    <Footer/>
     </>
   )
 };

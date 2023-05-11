@@ -75,35 +75,38 @@ const Panier = (match) => {
 
     return(
         <>
-        <h2> Voici votre panier {user.FirstName} {user.LastName}</h2>
-        {Panier.length === 0 && <p>Votre panier est vide</p>}
-        {Panier.length > 0 && (
-             <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>photo</th>
-                  <th>nom du Produits</th>
-                  <th>prix</th>
-                  
-                </tr>
-              </thead>
-                <tbody>
-                  {Panier
-                  .map(panier => (
-                    <tr key={panier.id}>
-                       <td><img src={panier.Produits.photo}  id="photopanier" className="card-img-top" alt="..."/></td>
-                      <td>{panier.Produits.nom_produit}</td>
-                      <td>{panier.Produits.prix}</td>
-                      <td><button class="btn btn-primary" onClick={() => handleDelete(panier.id)}>Delete</button></td>
-                    </tr>
-                  ))}
-                </tbody>
-            </table>
-        )}
-         <button onClick={() => alert(`Le prix total est de ${calculerPrixTotal()} euros`)}>
-                Payer
-        </button>
-        <button onClick={() => clearPanier()}>Clear Cart</button>
+        <div className="container pt-5">
+           <h2> Voici votre panier {user.FirstName} {user.LastName}</h2>
+          {Panier.length === 0 && <p>Votre panier est vide</p>}
+          {Panier.length > 0 && (
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th>photo</th>
+                    <th>nom du Produits</th>
+                    <th>prix</th>
+                    
+                  </tr>
+                </thead>
+                  <tbody>
+                    {Panier
+                    .map(panier => (
+                      <tr key={panier.id}>
+                        <td><img src={panier.Produits.photo}  id="photopanier" className="card-img-top" alt="..."/></td>
+                        <td>{panier.Produits.nom_produit}</td>
+                        <td>{panier.Produits.prix}</td>
+                        <td><button class="btn btn-primary" onClick={() => handleDelete(panier.id)}>Delete</button></td>
+                      </tr>
+                    ))}
+                  </tbody>
+              </table>
+          )}
+          <button onClick={() => alert(`Le prix total est de ${calculerPrixTotal()} euros`)}>
+                  Payer
+          </button>
+          <button onClick={() => clearPanier()}>Clear Cart</button>
+        </div>
+       
         </>
     )
 }

@@ -1,0 +1,26 @@
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    background-color: grey;
+    padding-top: 2%;
+}
+footer::after {
+    content: "website developped by Amaury, Maxence, Quentin ";
+    display: block;
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+.footer-col {
+    max-width: 40%;
+}
+.footer-col h1 {
+    font-size: var(--step-0);
+}
+.footer-col p {
+    font-size: var(--step--3);
+}
