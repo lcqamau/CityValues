@@ -27,7 +27,7 @@ const stock = ({}) => {
         Axios.put(`http://localhost:8000/api/produits/${id}`, {
             stock : stock
         })
-        location.reload();
+        location.reload("/Panier");
     }        
     }
 

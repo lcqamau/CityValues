@@ -3,6 +3,7 @@ import Field from "../components/forms/Field";
 import { Link } from "react-router-dom";
 import produitsAPI from "../services/produitsAPI";
 import { toast } from "react-toastify";
+import axios from "axios";
 import Footer from '../components/Footer';
 
 const ProduitPage = ({ history, match }) => {
@@ -10,16 +11,16 @@ const ProduitPage = ({ history, match }) => {
 
   const [Produit, setProduit] = useState({
     nom_produit: "",
-    prix: "",
-    stock: "",
-    photo:""
+    prix:'' ,
+    stock:'',
+    photo:"",
   });
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState({
     nom_produit: "",
     prix: "",
     stock: "",
-    photo:""
+    photo:"",
   });
   const [loading, setLoading] = useState(false);
 
@@ -43,8 +44,8 @@ const ProduitPage = ({ history, match }) => {
     } else {
       setProduit({
         nom_produit: "",
-        prix: "",
-        stock: "",
+        prix: '',
+        stock: '',
         photo: "",
       });
       setEditing(false);
@@ -59,18 +60,15 @@ const ProduitPage = ({ history, match }) => {
   // Gestion de la soumission du formulaire
   const handleSubmit = async event => {
     event.preventDefault();
-
     try {
-      if (editing) {
-        await produitsAPI.update(id, Produit);
-        toast.success("La facture a bien été modifiée");
-        history.replace("/stock");
-      } else {
-        await produitsAPI.create(Produit);
-        toast.success("La facture a bien été enregistrée");
-        history.replace("/stock");
-      }
-    } catch ({ response }) {
+        axios.post('http://localhost:8000/api/produits', {
+          nom_produit:Produit.nom_produit,
+          prix: parseInt(Produit.prix),
+          stock: parseInt(Produit.stock),
+          photo: Produit.photo
+        })
+        history.replace("/stock")
+      } catch ({ response }) {
       const { violations } = response.data;
 
       if (violations) {
@@ -87,8 +85,8 @@ const ProduitPage = ({ history, match }) => {
 
   return (
     <>
-      {(editing && <h1>Modification d'un produit</h1>) || (
-        <h1>Création d'une produit</h1>
+      {(editing && <h1>Modification d'une facture</h1>) || (
+        <h1>Création d'une facture</h1>
       )}
       {!loading && (
         <form className="form-container" onSubmit={handleSubmit}>
@@ -103,16 +101,18 @@ const ProduitPage = ({ history, match }) => {
           />
           <div className="form-group">
             <div className="form-field-row">
-              <Field
-                className="form-field"
-                name="prix"
-                type="number"
-                placeholder="Prix du produit"
-                label="Prix du produit"
-                onChange={handleChange}
-                value={Produit.prix}
-                error={errors.prix}
-              />
+            <Field
+              className="form-field"
+              name="prix"
+              type="number"
+              placeholder="Prix du produit"
+              label="Prix du produit"
+              onChange={handleChange}
+              value={Produit.prix}
+              error={errors.prix}
+              inputMode="numeric"
+              pattern="[0-9]*"
+            />
               <Field
                 className="form-field"
                 name="stock"
@@ -127,8 +127,8 @@ const ProduitPage = ({ history, match }) => {
             <Field
               className="form-field"
               name="photo"
-              placeholder="Photo du produit"
-              label="Photo du produit"
+              placeholder="photo du produit"
+              label="photo du produit"
               onChange={handleChange}
               value={Produit.photo}
               error={errors.photo}

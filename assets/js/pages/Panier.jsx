@@ -61,12 +61,6 @@ const Panier = (match) => {
         });
     };
 
-    const clearPanier = () => {
-      Axios.delete('http://localhost:8000/api/paniers').then(() => {
-        setPanier([]);
-      });
-    };
-
     useEffect(() => {
         Paniers();
         decodeToken(token);
