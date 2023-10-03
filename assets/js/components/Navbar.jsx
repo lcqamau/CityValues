@@ -44,15 +44,15 @@ const Navbar = ({history}) => {
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav me-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/Chaussures">Chaussures</NavLink>
+            <NavLink className="nav-link" to="/Chaussures">Commerces</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profil">Profil</NavLink>
+            <NavLink className="nav-link" to="/profil">Benevolats</NavLink>
           </li>
           {isAdmin &&
           <>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/stock">Produit</NavLink>
+                <NavLink className="nav-link" to="/stock">Echanges</NavLink>
               </li>
           </>
         }
@@ -68,7 +68,7 @@ const Navbar = ({history}) => {
               <NavLink to="/register" className="btn btn-info">Inscription</NavLink>
               </li>
             <li className="nav-item">
-                <NavLink to="/login" className="btn btn-success">Conexion</NavLink>
+                <NavLink to="/login" className="btn btn-success">Connexion</NavLink>
             </li>
           </> || (
 

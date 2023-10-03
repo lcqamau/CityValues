@@ -14,16 +14,14 @@ import './bootstrap';
 import Navbar from './js/components/Navbar';
 import Footer from './js/components/Footer';
 import RegisterPage from './js/pages/RegisterPage';
-import Chaussures from './js/pages/Chaussures';
-import Panier from './js/pages/Panier';
-import Produit from './js/pages/Produit';
 import PrivateRoute from "./js/components/PrivateRoute";
 import AuthContext from "./js/contexts/AuthContext";
 import stock from './js/pages/stock';
 import HomePage from './js/pages/HomePage';
 import LoginPage from './js/pages/LoginPage';
+
 import authAPI from './js/services/authAPI';
-import ProfilPage from './js/pages/profil';
+
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 import jwtDecode from 'jwt-decode';
@@ -82,12 +80,7 @@ const App = () =>{
         <main>
             <Switch>
                 <Route path="/login" component={LoginPage} />
-                <Route path="/register" component={RegisterPage} />
-                <PrivateRoute path="/profil" component={ProfilPage}/>
-                <AdminRoute path="/stock" component={stock}/>
-                <AdminRoute path="/Produit" component={Produit}/>
-                <PrivateRoute path="/Chaussures" component={Chaussures}/>
-                <PrivateRoute path="/Panier" component={Panier}/>                  
+                <Route path="/register" component={RegisterPage} />             
                 <Route path="/" component={HomePage}/>
             </Switch>
         </main>

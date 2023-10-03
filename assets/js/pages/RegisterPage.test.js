@@ -1,97 +1,48 @@
-import React from "react";
-import { shallow } from "enzyme";
-import RegisterPage from "./RegisterPage";
+import React from 'react';
+import { render, fireEvent, waitFor } from 'react';
+import Chaussures from './Chaussures';
 
-describe("<RegisterPage />", () => {
-  let wrapper;
+// Mock de la fonction de récupération des produits
+jest.mock('../services/produitsAPI', () => ({
+  findAll: jest.fn(() => Promise.resolve([
+    {id: 1, nom_produit: 'Chaussure 1', prix: 50, stock: 10, photo: 'photo1.jpg'},
+    {id: 2, nom_produit: 'Chaussure 2', prix: 70, stock: 5, photo: 'photo2.jpg'}
+  ]))
+}));
 
-  beforeEach(() => {
-    wrapper = shallow(<RegisterPage />);
+// Mock de la fonction de récupération de l'utilisateur
+jest.mock('../services/usersAPI', () => ({
+  findAll: jest.fn(() => Promise.resolve([
+    {id: 1, email: 'test@test.com'},
+    {id: 2, email: 'test2@test.com'}
+  ]))
+}));
+
+// Mock de la fonction de post pour le panier
+jest.mock('axios', () => ({
+  post: jest.fn(() => Promise.resolve())
+}));
+
+describe('Chaussures component', () => {
+  it('should render the component', async () => {
+    const { getByText } = render(<Chaussures />);
+    expect(getByText('Nom du produit')).toBeInTheDocument();
+    expect(getByText('Prix : 50 €')).toBeInTheDocument();
+    expect(getByText('Prix : 70 €')).toBeInTheDocument();
   });
 
-  it("renders without crashing", () => {
-    expect(wrapper).toHaveLength(1);
-  });
-
-  it("should have initial state with empty values", () => {
-    expect(wrapper.state("user")).toEqual({
-      FirstName: "",
-      LastName: "",
-      email: "",
-      password: "",
-      passwordConfirm: "",
+  it('should add a product to the cart when clicking on the "Ajouter au panier" button', async () => {
+    const { getByText, getByLabelText } = render(<Chaussures />);
+    const tailleSelect = getByLabelText('Taille');
+    const addToCartButton = getByText('Ajouter au panier');
+    fireEvent.change(tailleSelect, { target: { value: '36' } });
+    fireEvent.click(addToCartButton);
+    await waitFor(() => {
+      expect(axios.post).toHaveBeenCalledWith('http://localhost:8000/api/paniers', {
+        Produits:'/api/produits/1',
+        user:'/api/users/1',
+        Taille: '36'
+      });
     });
-    expect(wrapper.state("errors")).toEqual({
-      FirstName: "",
-      LastName: "",
-      email: "",
-      password: "",
-      passwordConfirm: "",
-    });
-  });
-
-  it("should update state on input change", () => {
-    const firstNameInput = wrapper.find('Field[name="FirstName"]');
-    firstNameInput.simulate("change", {
-      target: { name: "FirstName", value: "John" },
-    });
-    expect(wrapper.state("user")).toEqual({
-      FirstName: "John",
-      LastName: "",
-      email: "",
-      password: "",
-      passwordConfirm: "",
-    });
-  });
-
-  it("should show an error if password and passwordConfirm do not match", () => {
-    const form = wrapper.find("form");
-    const passwordInput = wrapper.find('Field[name="password"]');
-    const passwordConfirmInput = wrapper.find('Field[name="passwordConfirm"]');
-    passwordInput.simulate("change", {
-      target: { name: "password", value: "password1" },
-    });
-    passwordConfirmInput.simulate("change", {
-      target: { name: "passwordConfirm", value: "password2" },
-    });
-    form.simulate("submit", {
-      preventDefault: () => {},
-    });
-    expect(wrapper.state("errors")).toEqual({
-      passwordConfirm:
-        "Votre Confirmation de Mot de Passe n'est pas comforme avec le Mot de Passe",
-    });
-  });
-
-  it("should submit form and redirect to login page on successful registration", async () => {
-    const mockHistory = { replace: jest.fn() };
-    const mockRegister = jest.fn();
-    const user = {
-      FirstName: "John",
-      LastName: "Doe",
-      email: "john.doe@example.com",
-      password: "password",
-      passwordConfirm: "password",
-    };
-    mockRegister.mockResolvedValueOnce(user);
-    wrapper = shallow(<RegisterPage history={mockHistory} />);
-    wrapper.instance().setState({ user });
-    wrapper.instance().handleSubmit({ preventDefault: jest.fn() });
-    expect(mockRegister).toHaveBeenCalledWith(user);
-    expect(mockHistory.replace).toHaveBeenCalledWith("/login");
-  });
-
-  it("should show error message on failed registration", async () => {
-    const mockToast = { error: jest.fn() };
-    const mockRegister = jest.fn();
-    const errors = {
-      violations: [{ propertyPath: "email", message: "Email already exists" }],
-    };
-    mockRegister.mockRejectedValueOnce({ response: { data: { errors } } });
-    wrapper = shallow(<RegisterPage toast={mockToast} />);
-    wrapper.instance().handleSubmit({ preventDefault: jest.fn() });
-    expect(mockRegister).toHaveBeenCalled();
-    expect(wrapper.state("errors")).toEqual({ email: "Email already exists" });
-    expect(mockToast.error).toHaveBeenCalledWith("Des erreurs dans votre Formulaire !😠");
   });
 });

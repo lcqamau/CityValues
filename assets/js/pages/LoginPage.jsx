@@ -27,7 +27,7 @@ const LoginPage = ({ history}) => {
          setError("")
          setIsAuthenticated(true);
          toast.success("Vous etes desormais connecté !");
-         history.replace("/customers");
+         history.replace("/");
         }catch{
             setError("Aucun compte ne possède cette adresse email ou alors les informations ne correspondent pas !");
             toast.error("Une erreur est survenue");
@@ -43,7 +43,7 @@ const LoginPage = ({ history}) => {
             <Field label="Adresse email" name="username" value={credentials.username} onChange={handleChange} placeholder="Adresse email de connexion" error={error} />
             <Field name="password" label="Mot de passe" value={credentials.password} onChange={handleChange} type="password" error="" />
             <br/>
-                <div className="form-group"><button type="submit" className="btn btn-success">Conexion</button></div>
+                <div className="form-group"><button type="submit" className="btn btn-success">Connexion</button></div>
             </form>            
         </div>
     </>);
