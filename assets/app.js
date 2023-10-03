@@ -16,7 +16,6 @@ import Footer from './js/components/Footer';
 import RegisterPage from './js/pages/RegisterPage';
 import PrivateRoute from "./js/components/PrivateRoute";
 import AuthContext from "./js/contexts/AuthContext";
-import stock from './js/pages/stock';
 import HomePage from './js/pages/HomePage';
 import LoginPage from './js/pages/LoginPage';
 

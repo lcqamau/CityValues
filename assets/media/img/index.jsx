@@ -1,4 +1,4 @@
-import LandingPageImg from './NikeMoreUptempo.webp';
+import LandingPageImg from './commerce.jpeg';
 
 const images = {
     LandingPageImg,

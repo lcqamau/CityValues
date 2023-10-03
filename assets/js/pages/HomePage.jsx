@@ -11,7 +11,7 @@ function HomePage() {
     <div className="landing-section">
       <img src={ images.LandingPageImg } alt=""/>
       <h1>ACME</h1>
-      <Link to="/chaussures" className="landing-cta-button">Trouve TA paire</Link>
+      <Link to="/chaussures" className="landing-cta-button">Trouve Ton Commerce</Link>
     </div>
     <div className="div wave footer-wave"></div>
     <Footer/>

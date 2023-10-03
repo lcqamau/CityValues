@@ -45,7 +45,7 @@
 
 .landing-section {
   position: relative;
-  background-color: black;
+  background-color: rgb(117, 162, 96);
   color: white;
   min-height: 90vh;
   min-height: 90dvh;
@@ -85,7 +85,4 @@
   color: black;
   background-color: white;
   border: black;
-}
-.footer-wave {
-  background-image: url(../media/svg/blackToGrey.svg);
 }

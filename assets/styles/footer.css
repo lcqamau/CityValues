@@ -4,11 +4,11 @@ footer {
     flex-wrap: wrap;
     justify-content: space-evenly;
 
-    background-color: grey;
+    background-color: rgb(163, 190, 174);
     padding-top: 2%;
 }
 footer::after {
-    content: "website developped by Amaury, Maxence, Quentin ";
+    content: "";
     display: block;
     margin-top: 2%;
     width: 100%;

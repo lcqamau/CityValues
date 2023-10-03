@@ -34,9 +34,9 @@ const Navbar = ({history}) => {
 
 
     return ( 
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-white bg-white">
     <div className="container-fluid">
-      <NavLink className="navbar-brand" to="/">ACME</NavLink>
+      <NavLink className="navbar-brand" to="/">CityValues</NavLink>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
