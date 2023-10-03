@@ -44,18 +44,16 @@ const Navbar = ({history}) => {
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav me-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/Chaussures">Commerces</NavLink>
+            <NavLink className="nav-link" to="/Commerce">Commerces</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profil">Benevolats</NavLink>
+            <NavLink className="nav-link" to="/Benevolat">Benevolats</NavLink>
           </li>
-          {isAdmin &&
           <>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/stock">Echanges</NavLink>
+                <NavLink className="nav-link" to="/Echange">Echanges</NavLink>
               </li>
           </>
-        }
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">

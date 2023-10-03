@@ -12,13 +12,14 @@ import "react-toastify/dist/ReactToastify.css";
 // start the Stimulus application
 import './bootstrap';
 import Navbar from './js/components/Navbar';
-import Footer from './js/components/Footer';
 import RegisterPage from './js/pages/RegisterPage';
 import PrivateRoute from "./js/components/PrivateRoute";
+import Echange from './js/pages/Echange';
+import Benevolat from './js/pages/Benevolat';
+import Commerce from './js/pages/Commerce';
 import AuthContext from "./js/contexts/AuthContext";
 import HomePage from './js/pages/HomePage';
 import LoginPage from './js/pages/LoginPage';
-
 import authAPI from './js/services/authAPI';
 
 // any CSS you import will output into a single css file (app.css in this case)
@@ -79,7 +80,10 @@ const App = () =>{
         <main>
             <Switch>
                 <Route path="/login" component={LoginPage} />
-                <Route path="/register" component={RegisterPage} />             
+                <Route path="/register" component={RegisterPage} />
+                <Route path="/Commerce" component={Commerce}/>
+                <Route path="/Echange" component={Echange}/>
+                <Route path="/Benevolat" component={Benevolat}/>             
                 <Route path="/" component={HomePage}/>
             </Switch>
         </main>
@@ -90,4 +94,3 @@ const App = () =>{
 };
 const rootElement = document.querySelector('#app');
 ReactDOM.render(<App />, rootElement);
-
