@@ -44,10 +44,10 @@ const Navbar = ({history}) => {
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav me-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/Chaussures">Commerces</NavLink>
+            <NavLink className="nav-link" to="/commerce">Commerces</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profil">Benevolats</NavLink>
+            <NavLink className="nav-link" to="/benevolat">Benevolats</NavLink>
           </li>
           {isAdmin &&
           <>
