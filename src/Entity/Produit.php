@@ -22,11 +22,10 @@ class Produit
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?TypeProduit $type = null;
-
-    #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Commercant $commercant = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
 
     public function getId(): ?int
     {
@@ -57,18 +56,6 @@ class Produit
         return $this;
     }
 
-    public function getType(): ?TypeProduit
-    {
-        return $this->type;
-    }
-
-    public function setType(?TypeProduit $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getCommercant(): ?Commercant
     {
         return $this->commercant;
@@ -77,6 +64,18 @@ class Produit
     public function setCommercant(?Commercant $commercant): self
     {
         $this->commercant = $commercant;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

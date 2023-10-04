@@ -18,10 +18,18 @@ class Echange
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Statuts = null;
+    private ?string $statuts = null;
 
     #[ORM\OneToMany(mappedBy: 'echange', targetEntity: DemandeEchange::class, orphanRemoval: true)]
     private Collection $demandeEchange;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Produit $produitEchange = null;
+
+    #[ORM\ManyToOne(inversedBy: 'echanges')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $utilisateur = null;
 
     public function __construct()
     {
@@ -35,12 +43,12 @@ class Echange
 
     public function getStatuts(): ?string
     {
-        return $this->Statuts;
+        return $this->statuts;
     }
 
-    public function setStatuts(string $Statuts): self
+    public function setStatuts(string $statuts): self
     {
-        $this->Statuts = $Statuts;
+        $this->statuts = $statuts;
 
         return $this;
     }
@@ -74,4 +82,29 @@ class Echange
 
         return $this;
     }
+
+    public function getProduitEchange(): ?Produit
+    {
+        return $this->produitEchange;
+    }
+
+    public function setProduitEchange(Produit $produitEchange): self
+    {
+        $this->produitEchange = $produitEchange;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
 }

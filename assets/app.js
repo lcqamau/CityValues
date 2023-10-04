@@ -19,7 +19,18 @@ import Benevolat from './js/pages/Benevolat';
 import Commerce from './js/pages/Commerce';
 import AuthContext from "./js/contexts/AuthContext";
 import HomePage from './js/pages/HomePage';
+import AjoutProduit from './js/pages/commercant/AjoutProduit';
+import VoirProduit from './js/pages/commercant/VoirProduit';
 import LoginPage from './js/pages/LoginPage';
+<<<<<<< HEAD
+=======
+import Commerce from './js/pages/commercant/Commerce';
+import ModifCommerce from './js/pages/commercant/ModifCommerce';
+import VoirEchange from './js/pages/echange/VoirEchange';
+import AjoutEchange from './js/pages/echange/AjoutEchange';
+import Benevolat from './js/pages/Benevolat';
+import Echange from './js/pages/Echange';
+>>>>>>> 763a222 (ajout dans la navbar de utilisateur, ajout produit, ajout echange, voir echange, voir produit, filtre sur les produits)
 import authAPI from './js/services/authAPI';
 
 // any CSS you import will output into a single css file (app.css in this case)
@@ -83,7 +94,21 @@ const App = () =>{
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/Commerce" component={Commerce}/>
                 <Route path="/Echange" component={Echange}/>
+<<<<<<< HEAD
                 <Route path="/Benevolat" component={Benevolat}/>             
+=======
+                <Route path="/Benevolat" component={Benevolat}/>   
+                <Route path="/FormCommerce" component={FormCommerce}/>  
+                <Route path="/ajout-produit" component={AjoutProduit}/>
+                <Route path="/voir-produit" component={VoirProduit}/>  
+                <Route path="/ajout-echange" component={AjoutEchange}/> 
+                <Route path="/voir-echange" component={VoirEchange}/>      
+
+
+
+
+
+>>>>>>> 763a222 (ajout dans la navbar de utilisateur, ajout produit, ajout echange, voir echange, voir produit, filtre sur les produits)
                 <Route path="/" component={HomePage}/>
             </Switch>
         </main>
