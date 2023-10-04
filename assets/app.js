@@ -18,9 +18,11 @@ import PrivateRoute from "./js/components/PrivateRoute";
 import AuthContext from "./js/contexts/AuthContext";
 import HomePage from './js/pages/HomePage';
 import LoginPage from './js/pages/LoginPage';
-
+import Commerce from './js/pages/Commerce';
+import Benevolat from './js/pages/Benevolat';
+import Echange from './js/pages/Echange';
 import authAPI from './js/services/authAPI';
-
+import FormCommerce from './js/pages/FormCommerce';
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 import jwtDecode from 'jwt-decode';
@@ -79,7 +81,11 @@ const App = () =>{
         <main>
             <Switch>
                 <Route path="/login" component={LoginPage} />
-                <Route path="/register" component={RegisterPage} />             
+                <Route path="/register" component={RegisterPage} />
+                <Route path="/Commerce" component={Commerce}/>
+                <Route path="/Echange" component={Echange}/>
+                <Route path="/Benevolat" component={Benevolat}/>   
+                <Route path="/FormCommerce" component={FormCommerce}/>              
                 <Route path="/" component={HomePage}/>
             </Switch>
         </main>
