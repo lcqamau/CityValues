@@ -3,6 +3,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
 import Field from "../components/forms/Field";
 import usersAPI from "../services/usersAPI";
+import MyAddress from "../components/MyAddress.jsx";
+
 
 const RegisterPage = ({ history }) => {
   const [user, setUser] = useState({
@@ -89,6 +91,8 @@ const RegisterPage = ({ history }) => {
           value={user.email}
           onChange={handleChange}
         />
+        &nbsp;
+        <MyAddress/>
         &nbsp;
         <Field
           name="password"
