@@ -8,10 +8,16 @@ use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Utilisateur;
+use App\Entity\Commercant;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name:"type", type:"string")]
+#[ORM\DiscriminatorMap(["utilisateur"=>Utilisateur::class,"commercant"=>Commercant::class])]
 #[ApiResource(normalizationContext:["groups"=>"user_read"])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,6 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Groups("user_read")]
     private ?string $LastName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
 
 
     public function getId(): ?int
@@ -133,6 +142,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $LastName): self
     {
         $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

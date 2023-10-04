@@ -40,7 +40,8 @@ class AppFixtures extends Fixture
             $user->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName)
                 ->setEmail($faker->email)
-                ->setPassword($hash);
+                ->setPassword($hash)
+                ->setAdresse($faker->adresse);
                 $manager->persist($user);
         }
 
