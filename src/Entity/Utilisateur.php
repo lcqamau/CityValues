@@ -13,10 +13,6 @@ Use App\Entity\User;
 #[ApiResource]
 class Utilisateur extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column]
     private ?int $point = null;

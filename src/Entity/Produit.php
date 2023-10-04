@@ -28,9 +28,6 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Commercant $commercant = null;
 
-    #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
-    private ?DemandeEchange $demandeEchange = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -80,23 +77,6 @@ class Produit
     public function setCommercant(?Commercant $commercant): self
     {
         $this->commercant = $commercant;
-
-        return $this;
-    }
-
-    public function getDemandeEchange(): ?DemandeEchange
-    {
-        return $this->demandeEchange;
-    }
-
-    public function setDemandeEchange(DemandeEchange $demandeEchange): self
-    {
-        // set the owning side of the relation if necessary
-        if ($demandeEchange->getProduit() !== $this) {
-            $demandeEchange->setProduit($this);
-        }
-
-        $this->demandeEchange = $demandeEchange;
 
         return $this;
     }
