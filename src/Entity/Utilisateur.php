@@ -26,11 +26,15 @@ class Utilisateur extends User
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: DemandeEchange::class, orphanRemoval: true)]
     private Collection $demandeEchange;
 
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Echange::class, orphanRemoval: true)]
+    private Collection $echanges;
+
     public function __construct()
     {
         $this->creer = new ArrayCollection();
         $this->accepter = new ArrayCollection();
         $this->demandeEchange = new ArrayCollection();
+        $this->echanges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,6 +138,36 @@ class Utilisateur extends User
             // set the owning side to null (unless already changed)
             if ($demandeEchange->getUtilisateur() === $this) {
                 $demandeEchange->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Echange>
+     */
+    public function getEchanges(): Collection
+    {
+        return $this->echanges;
+    }
+
+    public function addEchange(Echange $echange): self
+    {
+        if (!$this->echanges->contains($echange)) {
+            $this->echanges->add($echange);
+            $echange->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEchange(Echange $echange): self
+    {
+        if ($this->echanges->removeElement($echange)) {
+            // set the owning side to null (unless already changed)
+            if ($echange->getUtilisateur() === $this) {
+                $echange->setUtilisateur(null);
             }
         }
 

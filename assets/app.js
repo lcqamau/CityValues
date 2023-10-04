@@ -17,8 +17,13 @@ import RegisterPage from './js/pages/RegisterPage';
 import PrivateRoute from "./js/components/PrivateRoute";
 import AuthContext from "./js/contexts/AuthContext";
 import HomePage from './js/pages/HomePage';
+import AjoutProduit from './js/pages/commercant/AjoutProduit';
+import VoirProduit from './js/pages/commercant/VoirProduit';
 import LoginPage from './js/pages/LoginPage';
-import Commerce from './js/pages/Commerce';
+import Commerce from './js/pages/commercant/Commerce';
+import ModifCommerce from './js/pages/commercant/ModifCommerce';
+import VoirEchange from './js/pages/echange/VoirEchange';
+import AjoutEchange from './js/pages/echange/AjoutEchange';
 import Benevolat from './js/pages/Benevolat';
 import Echange from './js/pages/Echange';
 import authAPI from './js/services/authAPI';
@@ -85,7 +90,16 @@ const App = () =>{
                 <Route path="/Commerce" component={Commerce}/>
                 <Route path="/Echange" component={Echange}/>
                 <Route path="/Benevolat" component={Benevolat}/>   
-                <Route path="/FormCommerce" component={FormCommerce}/>              
+                <Route path="/FormCommerce" component={FormCommerce}/>  
+                <Route path="/ajout-produit" component={AjoutProduit}/>
+                <Route path="/voir-produit" component={VoirProduit}/>  
+                <Route path="/ajout-echange" component={AjoutEchange}/> 
+                <Route path="/voir-echange" component={VoirEchange}/>      
+
+
+
+
+
                 <Route path="/" component={HomePage}/>
             </Switch>
         </main>

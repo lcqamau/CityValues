@@ -2,19 +2,20 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 function logout() {
-    window.localStorage.removeItem("authToken");
+    window.localStorage.clear();
     delete axios.defaults.headers["Authorization"];
 };
 
 function authenticate(credentials){
     return axios
         .post("/api/login_check", credentials)
-        .then(response =>response.data.token)
-        .then(token => {
-            //Je stocke le token dans mon localStorage
-            window.localStorage.setItem("authToken", token);
-            //On previens axios qu'on a maintenant un header par défaut sur toutes nos futures requetes HTTP
-            setAxiosToken(token);
+        //Modification 04/10 : Ajout de l'id dans le localStorage
+        .then(function(response){
+            if(response.data.token){
+                window.localStorage.setItem("authToken", response.data.token);
+                window.localStorage.setItem("id", response.data.data.id);
+
+            }
         });
 }
 
@@ -59,9 +60,26 @@ function isAuthenticated() {
     return false;
 }
 
+/**
+ * Mets à jour le type dans le localStorage
+ */
+function getType(id) {
+    if(id){
+        return axios
+            .get('http://127.0.0.1:8000/api/users/'+id)
+            .then(function(response){
+                if(response.data["@type"]){
+                    window.localStorage.setItem("type",response.data["@type"]);
+                    return true;
+                }
+            });
+    }
+  }
+
 export default{
     authenticate,
     logout,
     setup,
-    isAuthenticated
+    isAuthenticated,
+    getType
 }
