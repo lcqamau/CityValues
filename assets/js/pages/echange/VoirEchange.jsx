@@ -103,8 +103,6 @@ function VoirEchange({history}) {
                     <>
                     <div class='container-fluid'>
                         {echanges.map((echange, index) => {
-                                    console.log(echange["demandeEchange"])
-
                                     return (
                                         <Card titre={echange["produitEchange"]["nom"]} 
                                         description={echange["produitEchange"]["description"]} 

@@ -79,7 +79,6 @@ function Echange({history}) {
                         {echanges.map((echange, index) => {
                                     console.log(echange["demandeEchange"].length)
                                     return (
-                                        <div>
                                             <Card titre={echange["produitEchange"]["nom"]} 
                                                 description={echange["produitEchange"]["description"]} 
                                                 type={echange["produitEchange"]["type"]}
@@ -89,10 +88,6 @@ function Echange({history}) {
                                                 link={'/ajout-proposition?id=3'}
                                                 onClickProposition={()=>history.replace('/ajout-proposition?id='+echange["id"])}
                                                 ></Card>                                  
-                                            <Link to={'ajout-proposition?id='+echange["id"]} className="btn btn-success">Faire une proposition !</Link>
-
-                                        </div>
-                     
                                     );
                                 })}
                     </div>
