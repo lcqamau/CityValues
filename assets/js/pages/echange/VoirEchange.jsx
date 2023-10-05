@@ -47,7 +47,7 @@ function VoirEchange({history}) {
      async function deleteProduit(id){
         var reponse = await echangeAPI.deleteEchange(id)
         if(reponse){
-            toast.success("Echange correctement supprimé")
+            toast.success("Echange correctement supprimé");
             await fetchData(filter);
         }else{
             toast.success("Erreur dans la suppression du produit")
@@ -55,22 +55,22 @@ function VoirEchange({history}) {
         }
      }
 
-     //Permet de clôturer un ticket
+     //Permet de clôturer un ticket et d'ajouter les points aux différents User
      async function clotureEchange(id){
+        setLoad(true);
         var reponse = await echangeAPI.clotureEchange(id)
         if(reponse){
-            toast.success("Echange correctement supprimé")
+            toast.success("Bravo ! Vous avez gagné 10 points 🎉");
             await fetchData(filter);
         }else{
-            toast.success("Erreur dans la suppression du produit")
-
+            toast.success("Erreur dans la suppression du produit");
         }
+        setLoad(false);
      }
+
      async function fetchData(filter) {
         setLoad(true);
-
         let echangesBis = await echangeAPI.getEchange(localStorage.getItem("id"));
-        console.log(echangesBis)
         setEchange(echangesBis);
         if(filter != "null"){
         }
@@ -78,6 +78,7 @@ function VoirEchange({history}) {
         setLoad(false);
     }
 
+    
     useEffect(()=>{
         fetchData(filter);
     },[filter])

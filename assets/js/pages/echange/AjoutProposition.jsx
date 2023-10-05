@@ -61,7 +61,7 @@ function AjoutProposition() {
                 }
                 //Envoie à l'api
                 await echangeAPI.addDemandeEchange(echangeId,produit);
-                toast.success("Nouveau produit : '" + produit.nom + "' ! ");
+                toast.success("Proposition envoyée !");
                 restoreValues();
 
 

@@ -76,20 +76,29 @@ function Echange({history}) {
             <p>Ici, vous pouvez voir les échanges en attente sur le site et faire des propositions de produits</p>
             <p>Les échanges permettent d'acquérir des points sur le site, alors n'hésitez pas !</p>
             <div class='container-fluid'>
+                        {echanges.length == 0 && 
+                        <>
+                        <h3>Aucun échange en cours sur le site 🥲</h3>
+                        </>
+                        ||
+                        <>
                         {echanges.map((echange, index) => {
-                                    console.log(echange["demandeEchange"].length)
-                                    return (
-                                            <Card titre={echange["produitEchange"]["nom"]} 
-                                                description={echange["produitEchange"]["description"]} 
-                                                type={echange["produitEchange"]["type"]}
-                                                nombreDeDemande={echange["demandeEchange"].length}
-                                                statuts={echange["statuts"]}
-                                                proposition={true}
-                                                link={'/ajout-proposition?id=3'}
-                                                onClickProposition={()=>history.replace('/ajout-proposition?id='+echange["id"])}
-                                                ></Card>                                  
-                                    );
-                                })}
+                            console.log(echange["demandeEchange"].length)
+                            return (
+                                    <Card titre={echange["produitEchange"]["nom"]} 
+                                        description={echange["produitEchange"]["description"]} 
+                                        type={echange["produitEchange"]["type"]}
+                                        nombreDeDemande={echange["demandeEchange"].length}
+                                        statuts={echange["statuts"]}
+                                        proposition={true}
+                                        link={'/ajout-proposition?id=3'}
+                                        onClickProposition={()=>history.replace('/ajout-proposition?id='+echange["id"])}
+                                        ></Card>                                  
+                            );
+                        })}
+                        </>
+                        }
+                        
                     </div>
         </div>
 

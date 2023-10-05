@@ -39,8 +39,9 @@ async function getEchange(idUtilisateur){
                 //Third : on récupére le produit associé
                 reponse = await axios.get('http://127.0.0.1:8000'+reponse.data["produitEchange"]);
                 echange["produitEchange"] = reponse.data;
-                
-                echanges.push(echange);
+                if(echange["statuts"] != "archive"){
+                    echanges.push(echange);
+                }
             }
         }
         return echanges;
@@ -72,16 +73,17 @@ async function getAllEchange(idUtilisateur){
             var echangesTemp = reponse.data["hydra:member"];
             //Third : on check que l'utilisateur ne corresponds pas à celui qui fait l'appel API 
             for(var echange of echangesTemp){
-                reponse = await axios.get('http://127.0.0.1:8000'+echange["produitEchange"]);
-                echange["produitEchange"] = reponse.data;
-                reponse = await axios.get('http://127.0.0.1:8000' + echange.utilisateur);
-                if(reponse.data["id"] != idUtilisateur){
-
-                    echanges.push(echange);
+                if(echange["statuts"]!="archive"){
+                    reponse = await axios.get('http://127.0.0.1:8000'+echange["produitEchange"]);
+                    echange["produitEchange"] = reponse.data;
+                    reponse = await axios.get('http://127.0.0.1:8000' + echange.utilisateur);
+                    if(reponse.data["id"] != idUtilisateur){
+                        echanges.push(echange);
+                    }
                 }
+                
             }
         }
-        console.log(echanges)
         return echanges;
     }catch(e){
         return echanges;
@@ -145,7 +147,7 @@ async function getDemandeEchange(idEchange){
             var echange = reponse.data
             console.log(echange)
             //Si les échanges correspondent alors
-            if(echange["id"] == idEchange && !dE["estAccepte"]){
+            if(echange["id"] == idEchange && !dE["estAccepte"] && echange["statuts"]!= "archive"){
                 //On récupére le produit associé
                 reponse = await axios.get('http://127.0.0.1:8000'+dE["produit"]);
                 console.log(reponse)
@@ -155,11 +157,13 @@ async function getDemandeEchange(idEchange){
                 console.log("tempEchange")
                 console.log(tempDemandeEchange)
                 tempDemandeEchange["echange"]=echange;
-                tempDemandeEchange["produit"]=produit;
+                tempDemandeEchange["produit"]=produit
                 listToReturn.push(tempDemandeEchange)
                 }
             } 
         }
+        console.log('listToReturn');
+        console.log(listToReturn);
         return listToReturn;
     }
     catch(e){
@@ -175,13 +179,37 @@ async function changeStatutsDemandeEchange(idEchange,idDemandeEchange,estAccepte
 
     console.log(reponse);
 }
-
-//DEL les demandes d'echanges et change le statuts PUT 
+//On change le statuts en archive et on vient rajouter les points aux users
 async function clotureEchange(idEchange){
-    var reponse = await axios.get('http://127.0.0.1:8000/api/echanges/'+idEchange);
-    var echange = reponse.data;
-    console.log("qzd")
-    console.log(echange);
+    try{
+        var reponse = await axios.get('http://127.0.0.1:8000/api/echanges/'+idEchange);
+        var echange = reponse.data;
+
+        var urlUser1 = echange["utilisateur"];
+        var urlUser2 = '';
+        //Recupération du user dans la liste des demandes
+        for(var demande of reponse.data["demandeEchange"]){
+            reponse = await axios.get('http://127.0.0.1:8000' + demande);
+            if(reponse.data["estAccepte"]){
+                urlUser2 = reponse.data["utilisateur"];
+            }
+        }
+        reponse = await axios.get('http://127.0.0.1:8000'+urlUser1);
+        var user1 = reponse.data;
+        reponse = await axios.get('http://127.0.0.1:8000'+urlUser2);
+        var user2 = reponse.data;
+    
+        var point1 = user1["point"] + 10;
+        await axios.put('http://127.0.0.1:8000'+urlUser1, {"point":point1})
+        var point2 = user2["point"] + 10;
+        await axios.put('http://127.0.0.1:8000'+urlUser2, {"point":point2})
+        await axios.put('http://127.0.0.1:8000/api/echanges/'+idEchange,{'statuts':'archive'})
+
+        return true;
+    }
+    catch(e){
+        return false;
+    }
 
 
 }

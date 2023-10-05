@@ -62,8 +62,9 @@ function VoirDemande({history}) {
     }
 
     async function accepteProposition(idProposition){
-        alert('accepte !')
         var reponse = await echangeAPI.changeStatutsDemandeEchange(idEchange,idProposition,true,"confirmer");
+        toast.success('Echange correctement accepté');
+        history.replace('/voir-echange');
     }
 
      useEffect(()=>{
