@@ -20,10 +20,14 @@ function AddressSearch()
 {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
+	const [selectedAddress, setSelectedAddress] = useState(null);
+	const [isOpen, setIsOpen] = useState(false);
+	const [blurTimer, setBlurTimer] = useState(null);
 
 	useEffect(() => 
 	{
-		const delayDebounceFn = setTimeout(() => {
+		const delayDebounceFn = setTimeout(() =>
+		{
 			if(searchTerm)
 			{
 				handleSearch();
@@ -34,7 +38,15 @@ function AddressSearch()
 			}
 		}, 300);
 
-		return () => clearTimeout(delayDebounceFn);
+		return () => 
+		{
+			clearTimeout(delayDebounceFn);
+
+			if (blurTimer)
+			{
+				clearTimeout(blurTimer);
+			}
+		};
 	}, [searchTerm]);
 
 	const handleSearch = async () => 
@@ -51,19 +63,43 @@ function AddressSearch()
 		}
 	};
 
+	const handleAddressClick = (address) =>
+	{
+		setSelectedAddress(address);
+		setSearchTerm(address);
+		setIsOpen(false);
+	};
+
+	const handleInputChange = (e) => {
+		setSearchTerm(e.target.value);
+		setIsOpen(true);
+	}
+
+	const handleBlur = () => 
+	{
+		const timer = setTimeout(() => {
+			setIsOpen(false);
+		}, 200); setBlurTimer(timer);
+	};
+
 	return (
-        <div>
+        <div className="form-group">
             <input
+				className="form-control"
                 type="text"
-                placeholder="Entrez une adresse..."
+                placeholder="Entrez une adresse"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleInputChange}
+				onBlur = {handleBlur}
             />
-            <ul>
-                {searchResults.map((result) => (
-                    <li key={result.properties.id}>{result.properties.label}</li>
+
+			{isOpen && (<ul>
+                {searchResults.map((result) => (<li key={result.properties.id} onClick={() =>
+				handleAddressClick(result.properties.label)}
+				style = {{cursor:"pointer"}}
+					>{result.properties.label}</li>
                 ))}
-            </ul>
+            </ul>)}
         </div>
     );
 }

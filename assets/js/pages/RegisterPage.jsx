@@ -34,16 +34,16 @@ const RegisterPage = ({ history }) => {
     const apiErrors = {};
     if (user.password !== user.passwordConfirm) {
       apiErrors.passwordConfirm =
-        "Votre Confirmation de Mot de Passe n'est pas comforme avec le Mot de Passe";
+        "Votre confirmation de mot de passe n'est pas conforme avec le mot de passe";
       setErrors(apiErrors);
-      toast.error("Des erreurs dans votre Formulaire !😠");
+      toast.error("Des erreurs dans votre formulaire !😠");
       return;
     }
 
     try {
       await usersAPI.register(user);
       setErrors({});
-      toast.success("Vous êtes Désormais Inscrit !😄");
+      toast.success("Vous êtes désormais inscrit !😄");
       history.replace("/login");
     } catch (error) {
       console.log(error.response);
@@ -56,7 +56,7 @@ const RegisterPage = ({ history }) => {
         });
         setErrors(apiErrors);
       }
-      toast.error("Des erreurs dans votre Formulaire !😠");
+      toast.error("Des erreurs dans votre formulaire !😠");
     }
   };
 
@@ -68,7 +68,7 @@ const RegisterPage = ({ history }) => {
         <Field
           name="FirstName"
           label="Prénom"
-          placeholder="Votre Prénom"
+          placeholder="Votre prénom"
           error={errors.FirstName}
           value={user.FirstName}
           onChange={handleChange}
@@ -77,7 +77,7 @@ const RegisterPage = ({ history }) => {
         <Field
           name="LastName"
           label="Nom"
-          placeholder="Votre Nom"
+          placeholder="Votre nom"
           error={errors.LastName}
           value={user.FastName}
           onChange={handleChange}
@@ -86,19 +86,22 @@ const RegisterPage = ({ history }) => {
         <Field
           name="email"
           label="Email"
-          placeholder="Votre Email"
+          placeholder="Votre e-mail"
           error={errors.email}
           value={user.email}
           onChange={handleChange}
         />
         &nbsp;
+        <div>
+        <p>Adresse</p>
+        </div>
         <MyAddress/>
         &nbsp;
         <Field
           name="password"
           type="password"
           label="Password"
-          placeholder="Votre Mot de Passe"
+          placeholder="Votre mot de passe"
           error={errors.password}
           value={user.password}
           onChange={handleChange}
@@ -108,7 +111,7 @@ const RegisterPage = ({ history }) => {
           name="passwordConfirm"
           type="password"
           label="PasswordConfirm"
-          placeholder="Comfirmer votre Mot de Passe"
+          placeholder="Confirmez votre mot de passe"
           error={errors.passwordConfirm}
           value={user.passwordConfirm}
           onChange={handleChange}
