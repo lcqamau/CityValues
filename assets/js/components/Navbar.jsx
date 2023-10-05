@@ -85,7 +85,7 @@ const Navbar = ({history}) => {
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <NavLink className="dropdown-item" to="/ajout-echange">Ajouter un échange</NavLink>
-                  <NavLink className="dropdown-item" to="/voir-echange">Voir ses échange</NavLink>
+                  <NavLink className="dropdown-item" to="/voir-echange">Voir ses échanges</NavLink>
                 </div>
               </div>
               </>

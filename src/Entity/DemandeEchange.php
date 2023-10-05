@@ -26,6 +26,10 @@ class DemandeEchange
     #[ORM\JoinColumn(nullable: false)]
     private ?Echange $echange = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Produit $produit = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +67,18 @@ class DemandeEchange
     public function setEchange(?Echange $echange): self
     {
         $this->echange = $echange;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(Produit $produit): static
+    {
+        $this->produit = $produit;
 
         return $this;
     }
