@@ -51,7 +51,6 @@ function VoirProduit() {
             await fetchData(filter);
         }else{
             toast.success("Erreur dans la suppression du produit")
-
         }
         console.log("delete du produit "+ id )
      }
