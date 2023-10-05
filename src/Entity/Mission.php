@@ -19,6 +19,12 @@ class Mission
     private ?string $Statuts = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $Description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Titre = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $Difficulte = null;
 
     #[ORM\Column]
@@ -107,6 +113,29 @@ class Mission
     public function setUtilisateurAccepter(?Utilisateur $utilisateurAccepter): self
     {
         $this->utilisateurAccepter = $utilisateurAccepter;
+
+        return $this;
+    }
+    
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+    
+    public function setDescription(string $Description): self
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+    public function getTitre(): ?string
+    {
+        return $this->Titre;
+    }
+
+    public function setTitre(string $Titre): self
+    {
+        $this->Titre = $Titre;
 
         return $this;
     }

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Return tous les produits de la base de données
 async function getAll(){
     var reponse = await axios.get('http://127.0.0.1:8000/api/produits');
     if(reponse.status == 200){
