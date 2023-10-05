@@ -7,11 +7,17 @@ import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import FormContentLoader from '../../components/loaders/FormContentLoader';
 import Card from '../../components/Card';
-function VoirEchange({history}) {
+import { useLocation } from 'react-router-dom'
+
+function VoirDemande({history}) {
+    const search = useLocation().search
+    const searchParams = new URLSearchParams(search)
+    const idEchange = searchParams.get('id')
+    console.log("idEchange const " + idEchange);
 
     //Creation des useState
     const [load, setLoad] = useState(true);
-    const [echanges, setEchange] = useState([]);
+    const [demandes, setDemandes] = useState([]);
     const [filter, setFilter] = useState("null");
     
     //Gestion du submit
@@ -43,49 +49,31 @@ function VoirEchange({history}) {
         });
         setProduits(listBis);
      };
-     //Permet de supprimer un produit
-     async function deleteProduit(id){
-        var reponse = await echangeAPI.deleteEchange(id)
-        if(reponse){
-            toast.success("Echange correctement supprimé")
-            await fetchData(filter);
-        }else{
-            toast.success("Erreur dans la suppression du produit")
-
-        }
-     }
-
-     //Permet de clôturer un ticket
-     async function clotureEchange(id){
-        var reponse = await echangeAPI.clotureEchange(id)
-        if(reponse){
-            toast.success("Echange correctement supprimé")
-            await fetchData(filter);
-        }else{
-            toast.success("Erreur dans la suppression du produit")
-
-        }
-     }
+     
      async function fetchData(filter) {
         setLoad(true);
-
-        let echangesBis = await echangeAPI.getEchange(localStorage.getItem("id"));
-        console.log(echangesBis)
-        setEchange(echangesBis);
+        let demandeEchanges = await echangeAPI.getDemandeEchange(idEchange);
+        console.log(demandeEchanges)
+        setDemandes(demandeEchanges);
         if(filter != "null"){
+            filterListOfProduit(produitBis);
         }
-        console.log('fin du fetch')
         setLoad(false);
     }
 
-    useEffect(()=>{
+    async function accepteProposition(idProposition){
+        alert('accepte !')
+        var reponse = await echangeAPI.changeStatutsDemandeEchange(idEchange,idProposition,true,"confirmer");
+    }
+
+     useEffect(()=>{
         fetchData(filter);
     },[filter])
 
     return (
     <>  
             <div className="container pt-5 text-center">
-            <h1 class="border-bottom p-3">Voici la liste de vos échanges 📚</h1>
+            <h1 class="border-bottom p-3">Voici la liste de vos demandes d'échange 📚</h1>
         {load && 
         <>
             <FormContentLoader></FormContentLoader>
@@ -93,7 +81,7 @@ function VoirEchange({history}) {
         ||
         <>
 
-                    {echanges.length == 0 && 
+                    {demandes.length == 0 && 
                     <>
                     <h2>Ohhhh non, vous n'avez pas encore d'échange 🥲</h2>
                     <Link to="/ajout-echange" className="btn btn-success">Fait un échange !</Link>
@@ -102,20 +90,20 @@ function VoirEchange({history}) {
                     ||
                     <>
                     <div class='container-fluid'>
-                        {echanges.map((echange, index) => {
-                                    console.log(echange["demandeEchange"])
+                        {demandes.map((demande, index) => {
 
                                     return (
-                                        <Card titre={echange["produitEchange"]["nom"]} 
-                                        description={echange["produitEchange"]["description"]} 
-                                        type={echange["produitEchange"]["type"]}
-                                        onClickDemande={()=>history.replace('/voir-demande?id='+echange["id"])}
-                                        onClickCloturer={()=>clotureEchange(echange["id"])}
-                                        nombreDeDemande={echange["demandeEchange"].length}
-                                        statuts={echange["statuts"]}
-                                        onClickSupprimer={()=>deleteProduit(echange["id"])}
+                                        
+                                        <Card titre={demande["produit"]["nom"]} 
+                                        description={demande["produit"]["description"]} 
+                                        type={demande["produit"]["type"]}
+                                        statuts={demande["statuts"]}
+                                        demande={true}
+                                        onClickAccepter={()=>accepteProposition(demande["id"])}
 
                                         ></Card>
+                                        
+                                       
                                     );
                                 })}
                     </div>
@@ -130,4 +118,4 @@ function VoirEchange({history}) {
         </>
     )
 }
-export default VoirEchange;
+export default VoirDemande;

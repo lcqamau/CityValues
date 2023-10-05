@@ -3,19 +3,28 @@ import AuthContext from '../../contexts/AuthContext';
 import { useContext,useState } from 'react';
 import { toast } from 'react-toastify';
 import echangeAPI from '../../services/echangeAPI';
+import { useParams } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom'
 
 
-function AjoutEchange() {
+function AjoutProposition() {
     const { setIsAuthenticated } = useContext(AuthContext);
-    
+    const search = useLocation().search
+    const searchParams = new URLSearchParams(search)
+    //On récupére l'id de l'échange cliquer via l'URL 
+    const echangeId = searchParams.get('id')
+    /*
+    STEP 1 : Renseigner le produit 
+    STEP 2 : Ajouter le produit 
+    STEP 3 : Ajouter la demande
+    */
     const [produit, setProduit] = useState({
         nom:"",
         description:"",
         type:""
     });
     const [error, setError] = useState("");
-
     //Gestion des champs
     const handleChange = ({currentTarget}) =>{
        setProduit({...produit, [currentTarget.id]: currentTarget.value});
@@ -51,7 +60,7 @@ function AjoutEchange() {
                     return;
                 }
                 //Envoie à l'api
-                await echangeAPI.addEchange(produit,localStorage.getItem("id"));
+                await echangeAPI.addDemandeEchange(echangeId,produit);
                 toast.success("Nouveau produit : '" + produit.nom + "' ! ");
                 restoreValues();
 
@@ -66,7 +75,7 @@ function AjoutEchange() {
     return (
     <>
         <div className="container pt-5">
-            <h1>Faire un nouvel échange 📚</h1>
+            <h1>Faire une nouvelle proposition</h1>
 
             <form onSubmit={handleSubmit}>
             <div class="mb-3">
@@ -97,4 +106,4 @@ function AjoutEchange() {
     </>
     )
 }
-export default AjoutEchange;
+export default AjoutProposition;

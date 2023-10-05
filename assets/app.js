@@ -21,7 +21,9 @@ import VoirProduit from './js/pages/commercant/VoirProduit';
 import LoginPage from './js/pages/LoginPage';
 import Commerce from './js/pages/commercant/Commerce';
 import ModifCommerce from './js/pages/commercant/ModifCommerce';
+import AjoutProposition from './js/pages/echange/AjoutProposition';
 import VoirEchange from './js/pages/echange/VoirEchange';
+import VoirDemande from './js/pages/echange/VoirDemande'; 
 import AjoutEchange from './js/pages/echange/AjoutEchange';
 import Benevolat from './js/pages/Benevolat';
 import Echange from './js/pages/Echange';
@@ -92,7 +94,12 @@ const App = () =>{
                 <Route path="/ajout-produit" component={AjoutProduit}/>
                 <Route path="/voir-produit" component={VoirProduit}/>  
                 <Route path="/ajout-echange" component={AjoutEchange}/> 
-                <Route path="/voir-echange" component={VoirEchange}/>      
+                <Route path="/voir-echange" component={VoirEchange}/>  
+                <Route path="/ajout-proposition" component={AjoutProposition}/>     
+                <Route path="/voir-demande" component={VoirDemande}/>  
+
+
+
 
 
 
