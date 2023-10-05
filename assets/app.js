@@ -14,9 +14,6 @@ import './bootstrap';
 import Navbar from './js/components/Navbar';
 import RegisterPage from './js/pages/RegisterPage';
 import PrivateRoute from "./js/components/PrivateRoute";
-import Echange from './js/pages/Echange';
-import Benevolat from './js/pages/Benevolat';
-import Commerce from './js/pages/Commerce';
 import AuthContext from "./js/contexts/AuthContext";
 import HomePage from './js/pages/HomePage';
 import AjoutProduit from './js/pages/commercant/AjoutProduit';
@@ -92,7 +89,6 @@ const App = () =>{
                 <Route path="/Commerce" component={Commerce}/>
                 <Route path="/Echange" component={Echange}/>
                 <Route path="/Benevolat" component={Benevolat}/>   
-                <Route path="/FormCommerce" component={FormCommerce}/>  
                 <Route path="/ajout-produit" component={AjoutProduit}/>
                 <Route path="/voir-produit" component={VoirProduit}/>  
                 <Route path="/ajout-echange" component={AjoutEchange}/> 
