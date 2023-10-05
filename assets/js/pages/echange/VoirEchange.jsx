@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Field from '../../components/forms/Field';
 import AuthContext from '../../contexts/AuthContext';
-import produitAPI from '../../services/produitAPI';
+import echangeAPI from '../../services/echangeAPI';
 import { useContext,useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
@@ -10,8 +10,7 @@ function VoirEchange() {
 
     //Creation des useState
     const [load, setLoad] = useState(true);
-    const [produits, setProduits] = useState([]);
-    const [selectType, setSelectType] = useState([]);
+    const [echanges, setEchange] = useState([]);
     const [filter, setFilter] = useState("null");
     
     //Gestion du submit
@@ -57,9 +56,8 @@ function VoirEchange() {
      }
      async function fetchData(filter) {
         setLoad(true);
-        let produitBis = await produitAPI.getAll();
-        console.log("nouveau produit");
-        setProduits(produitBis);
+        let echangesBis = await echangeAPI.getEchange(localStorage.getItem("id"));
+        setEchange(echangesBis);
         let selectType = getSelectType(produitBis);
         if(filter != "null"){
             filterListOfProduit(produitBis);
@@ -75,16 +73,7 @@ function VoirEchange() {
     return (
     <>  
             <div className="container pt-5 text-center">
-            <h1 class="border-bottom p-3">Voici la liste de vos produits 🥔🍅🥬 </h1>
-            <select class="form-select" aria-label="Default select example" onChange={handleFilter}>
-                        <option selected value="null">Selectionner un filtre</option>
-                        {selectType.map((type, index) => {
-                            
-                                return (
-                                    <option value={type}>{type}</option>
-                                );
-                        })}
-            </select>
+            <h1 class="border-bottom p-3">Voici la liste de vos échanges 📚</h1>
         {load && 
         <>
             <FormContentLoader></FormContentLoader>
@@ -94,8 +83,8 @@ function VoirEchange() {
 
                     {produits.length == 0 && 
                     <>
-                    <h2>Ohhhh non, vôtre liste de produit est vide 🥲</h2>
-                    <Link to="/ajout-produit" className="btn btn-success">Ajoute un produit !</Link>
+                    <h2>Ohhhh non, vous n'avez pas encore d'échange 🥲</h2>
+                    <Link to="/ajout-echange" className="btn btn-success">Fait un échange !</Link>
 
                     </>
                     ||
