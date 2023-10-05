@@ -10,6 +10,33 @@ async function getAll(){
     }
 }
 
+async function getOneProduit(idProduit){
+    var reponse = await axios.get('http://127.0.0.1:8000'+idProduit);
+    if(reponse.status == 200){
+        return reponse.data;
+    }else{
+        return {};
+    }
+}
+
+//Return tous les produits de la base de données
+async function getAllByCommercant(idCommercant){
+    var reponse = await axios.get('http://127.0.0.1:8000/api/commercants/'+idCommercant);
+    var listToReturn = [];
+    if(reponse.status == 200){
+        console.log(reponse.data);
+        var urlProduit = reponse.data["produits"];
+        for(let url of urlProduit){
+            console.log(url);
+            var produit = await getOneProduit(url);
+            listToReturn.push(produit);
+        }
+        return listToReturn;
+    }else{
+        return listToReturn;
+    }
+}
+
 async function addProduit(produit,idCommercant){
     const produitToAdd = {
         "nom": produit.nom,
@@ -33,5 +60,6 @@ async function deleteProduit(id){
 export default {
     getAll,
     addProduit,
-    deleteProduit
+    deleteProduit,
+    getAllByCommercant
   };

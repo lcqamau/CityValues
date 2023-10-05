@@ -57,7 +57,7 @@ function VoirProduit() {
      }
      async function fetchData(filter) {
         setLoad(true);
-        let produitBis = await produitAPI.getAll();
+        let produitBis = await produitAPI.getAllByCommercant(localStorage.getItem("id"));
         console.log("nouveau produit");
         setProduits(produitBis);
         let selectType = getSelectType(produitBis);
